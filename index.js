@@ -1,18 +1,17 @@
 import express from "express";
 import cors from "cors";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const app = express();
 app.use(express.json());
 
-// const USER_SERVICE = "http://localhost:3000";
-// const REVIEW_SERVICE = "http://localhost:4000";
-// const GAME_SERVICE = "http://localhost:8000";
-// const LIKES_SERVICE = "http://host.docker.internal:7060";
-
-const LIKES_SERVICE = "http://likes-service:7060";
-const USER_SERVICE = "http://user-service:3000";
-const REVIEW_SERVICE = "http://reviews-service:4000";
-const GAME_SERVICE = "http://catalog-service:8000";
+const PORT = process.env.GATEWAY_PORT || 8000;
+const USER_SERVICE = process.env.USER_SERVICE || "http://localhost:3001";
+const REVIEW_SERVICE = process.env.REVIEW_SERVICE || "http://localhost:3002";
+const GAME_SERVICE = process.env.GAME_SERVICE || "http://localhost:3003";
+const LIKES_SERVICE = process.env.LIKES_SERVICE || "http://localhost:3004";
 
 app.use(
   cors({
@@ -91,7 +90,4 @@ app.get("/review/:gameId/reviews-with-user", async (req, res) => {
   }
 });
 
-app.listen(9000, () => console.log("Gateway running on 9000"));
-
-// NEED TO FETCH ALL REVIEWS FOR A CERTAIN GAME ID
-// NEED TO INCLUDE EACH AUTHOR FOR EACH REVIEW
+app.listen(PORT, () => console.log(`Gateway running on port: ${PORT}`));
