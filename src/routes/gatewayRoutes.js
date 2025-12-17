@@ -14,4 +14,4 @@ router.get("/user/:userId/reviews-with-games", getUserReviewsWithGames);
 // Fetch all reviews for a game, enriched with author/user data/
 router.get("/review/:gameId/reviews-with-user", getGameReviewsWithUsers);
 
-export default router;
+export const gatewayRouter = router;
