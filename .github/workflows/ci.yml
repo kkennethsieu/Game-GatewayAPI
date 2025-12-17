@@ -60,7 +60,13 @@ jobs:
 
       # 8. Run tests inside Docker container
       - name: Run tests inside Docker
-        run: docker run --rm $IMAGE_URI npm test
+        run: |
+          docker run --rm \
+          -e REVIEW_SERVICE_URL=http://review-service:3003 \
+          -e CATALOG_SERVICE_URL=http://catalog-service:3002 \
+          -e USER_SERVICE_URL=http://user-service:3001 \
+          -e LIKES_SERVICE_URL=http://likes-service:3004 \
+          $IMAGE_URI npm test
 
       # 9. Push Docker image to ECR
       - name: Push Docker image
